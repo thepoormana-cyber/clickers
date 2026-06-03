@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<title>🌾 Farm Empire</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:#1a2e1a;
+  color:#2d1f0e;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ======= TOP BAR ======= */
+.topbar{
+  height:52px;
+  background:linear-gradient(90deg,#2d5a1b,#3d7a25,#2d5a1b);
+  border-bottom:3px solid #5a9e32;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  flex-shrink:0;
+  box-shadow:0 3px 10px rgba(0,0,0,0.4);
+  z-index:100;
+}
+
+.topbar-title{
+  font-size:1.3em;
+  font-weight:800;
+  color:#f5e6a3;
+  text-shadow:1px 2px 4px rgba(0,0,0,0.5);
+}
+
+.topbar-nav{
+  display:flex;
+  gap:6px;
+}
+
+.nav-btn{
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  color:#f5e6a3;
+  padding:5px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  font-family:'Nunito',sans-serif;
+  font-size:0.85em;
+  font-weight:600;
+  transition:all 150ms;
+}
+
+.nav-btn:hover,.nav-btn.active{
+  background:rgba(255,255,255,0.25);
+  border-color:rgba(255,255,255,0.5);
+}
+
+.topbar-hud{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.hud-chip{
+  background:rgba(0,0,0,0.3);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:20px;
+  padding:4px 10px;
+  font-size:0.82em;
+  font-weight:700;
+  color:#f5e6a3;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.hud-prestige{
+  background:linear-gradient(135deg,rgba(180,100,255,0.4),rgba(120,50,200,0.4));
+  border-color:rgba(200,150,255,0.5);
+}
+
+.energy-bar{
+  width:70px;height:7px;
+  background:rgba(0,0,0,0.3);
+  border-radius:4px;overflow:hidden;
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+.energy-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,#7BC67E,#4CAF50);
+  border-radius:4px;
+  transition:width 300ms;
+}
+
+/* ======= MAIN LAYOUT ======= */
+.game-layout{
+  display:grid;
+  grid-template-columns:280px 1fr 320px;
+  flex:1;
+  overflow:hidden;
+}
+
+/* ======= PANELS ======= */
+.panel{
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:12px;
+  height:100%;
+}
+
+.panel::-webkit-scrollbar{width:6px;}
+.panel::-webkit-scrollbar-track{background:rgba(0,0,0,0.1);}
+.panel::-webkit-scrollbar-thumb{background:rgba(90,158,50,0.5);border-radius:3px;}
+.panel::-webkit-scrollbar-thumb:hover{background:rgba(90,158,50,0.8);}
+
+.panel-left{
+  background:linear-gradient(180deg,#f0e8d0,#e8d8b0);
+  border-right:3px solid #c8a84b;
+}
+
+.panel-center{
+  background:linear-gradient(180deg,#d4e8c2,#c8ddb0);
+  border-right:3px solid #c8a84b;
+}
+
+/* RIGHT : scrollable normale */
+.panel-right{
+  background:linear-gradient(180deg,#f0e8d0,#e8d8b0);
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:12px;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.panel-right::-webkit-scrollbar{width:6px;}
+.panel-right::-webkit-scrollbar-track{background:rgba(0,0,0,0.1);}
+.panel-right::-webkit-scrollbar-thumb{background:rgba(90,158,50,0.5);border-radius:3px;}
+
+/* ======= SECTION TITLES ======= */
+.sec-title{
+  font-size:0.78em;
+  font-weight:800;
+  color:#5a3e1b;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:8px;
+  padding:5px 10px;
+  background:linear-gradient(90deg,rgba(200,168,75,0.4),transparent);
+  border-left:3px solid #c8a84b;
+  border-radius:0 6px 6px 0;
+}
+
+/* ======= FARM GRID ======= */
+.farm-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.farm-plot{
+  background:linear-gradient(135deg,#8B5E3C,#6B4423);
+  border:3px solid #5a3e1b;
+  border-radius:12px;
+  padding:15px 10px;
+  text-align:center;
+  cursor:pointer;
+  transition:all 180ms;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,0.3),0 3px 8px rgba(0,0,0,0.2);
+  position:relative;
+  overflow:hidden;
+  user-select:none;
+}
+
+.farm-plot::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent);
+  border-radius:9px;
+}
+
+.farm-plot:hover{
+  transform:translateY(-3px) scale(1.02);
+  border-color:#8BC34A;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,0.3),0 6px 16px rgba(139,195,74,0.3);
+}
+
+.farm-plot:active{transform:translateY(0) scale(0.97);}
+
+.farm-emoji{font-size:2.6em;display:block;margin-bottom:5px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));}
+.farm-name{color:#f5e6a3;font-weight:800;font-size:0.88em;text-shadow:1px 1px 3px rgba(0,0,0,0.5);}
+.farm-stock{color:#d4f0a0;font-size:0.75em;font-weight:600;margin-top:3px;}
+.farm-gain{
+  position:absolute;top:5px;right:7px;
+  background:rgba(139,195,74,0.85);
+  color:#1a3a00;font-size:0.68em;font-weight:800;
+  padding:2px 6px;border-radius:10px;
+}
+
+/* ======= ANIMAL GRID ======= */
+.animal-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.animal-card{
+  background:linear-gradient(135deg,#fff8e7,#fef0c7);
+  border:2px solid #e8c84b;
+  border-radius:10px;
+  padding:10px 8px;
+  text-align:center;
+  cursor:pointer;
+  transition:all 150ms;
+  user-select:none;
+}
+
+.animal-card:hover{
+  transform:scale(1.04);
+  border-color:#8BC34A;
+  box-shadow:0 4px 12px rgba(139,195,74,0.3);
+}
+
+.animal-emoji{font-size:1.9em;}
+.animal-name{font-size:0.75em;font-weight:700;color:#5a3e1b;margin-top:3px;}
+.animal-count{font-size:1.1em;font-weight:800;color:#3d7a25;}
+.animal-cost{font-size:0.68em;color:#8a6e3b;margin-top:2px;}
+
+/* ======= CRAFT / SELL ITEMS ======= */
+.craft-item{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,0.6);
+  border:1px solid rgba(200,168,75,0.3);
+  border-radius:8px;padding:8px 10px;margin-bottom:6px;
+  transition:all 150ms;
+}
+
+.craft-item:hover{background:rgba(255,255,255,0.9);border-color:#8BC34A;}
+.craft-item.disabled{opacity:0.42;pointer-events:none;}
+
+.craft-left{display:flex;align-items:center;gap:8px;}
+.craft-emoji{font-size:1.5em;}
+.craft-name{font-weight:700;font-size:0.83em;color:#3d2b0e;}
+.craft-req{font-size:0.7em;color:#8a6e3b;}
+.craft-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+.craft-stock{font-size:0.72em;color:#5a7a3b;font-weight:700;}
+.sell-price{font-size:0.7em;color:#c47820;font-weight:700;}
+
+/* ======= BUTTONS ======= */
+.btn-small{
+  background:linear-gradient(135deg,#5a9e32,#3d7a25);
+  border:none;color:#fff;
+  padding:4px 10px;border-radius:12px;
+  font-family:'Nunito',sans-serif;font-size:0.73em;font-weight:700;
+  cursor:pointer;transition:all 150ms;
+  box-shadow:0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-small:hover{background:linear-gradient(135deg,#6ab83c,#4d8a2d);transform:scale(1.05);}
+
+.btn-sell{background:linear-gradient(135deg,#e8a020,#c47820);}
+.btn-sell:hover{background:linear-gradient(135deg,#f0b030,#d48830);}
+
+.btn-prestige{
+  background:linear-gradient(135deg,#9b59b6,#6c3483);
+  border:2px solid #d7bde2;
+  color:#fff;padding:10px 20px;
+  border-radius:20px;font-family:'Nunito',sans-serif;
+  font-size:0.9em;font-weight:800;cursor:pointer;
+  transition:all 200ms;width:100%;margin-top:6px;
+  box-shadow:0 4px 15px rgba(155,89,182,0.4);
+}
+
+.btn-prestige:hover{
+  background:linear-gradient(135deg,#af7ac5,#7d3c98);
+  transform:scale(1.02);
+  box-shadow:0 6px 20px rgba(155,89,182,0.6);
+}
+
+.btn-prestige:disabled{
+  opacity:0.4;cursor:not-allowed;transform:none;
+}
+
+/* ======= MINI CARDS (RIGHT) ======= */
+.mini-card{
+  background:rgba(255,255,255,0.55);
+  border:1px solid rgba(200,168,75,0.35);
+  border-radius:10px;padding:10px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.07);
+  flex-shrink:0;
+}
+
+/* Weather */
+.weather-display{text-align:center;padding:6px;}
+.weather-icon{font-size:2em;}
+.weather-label{font-size:0.8em;font-weight:700;color:#5a3e1b;margin-top:4px;}
+.weather-timer{font-size:0.7em;color:#8a6e3b;margin-top:2px;}
+
+/* Upgrade items */
+.upg-item{
+  background:rgba(255,255,255,0.6);
+  border:1px solid rgba(200,168,75,0.3);
+  border-radius:8px;padding:8px;
+  margin-bottom:6px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:0.77em;
+}
+
+.upg-name{font-weight:700;color:#3d2b0e;}
+.upg-desc{color:#7a6040;font-size:0.88em;}
+.upg-cost{font-weight:700;color:#c47820;font-size:0.88em;text-align:right;}
+.upg-level{
+  display:inline-block;
+  background:rgba(200,168,75,0.3);
+  border-radius:10px;padding:1px 7px;
+  font-size:0.85em;font-weight:800;color:#5a3e1b;
+  margin-bottom:2px;
+}
+
+/* Quest items */
+.quest-item{
+  background:rgba(255,255,255,0.6);
+  border:1px solid rgba(200,168,75,0.3);
+  border-radius:8px;padding:8px;margin-bottom:6px;font-size:0.77em;
+}
+
+.quest-name{font-weight:700;color:#3d2b0e;margin-bottom:2px;}
+.quest-desc{color:#7a6040;margin-bottom:5px;}
+.quest-bar-bg{height:7px;background:#d4c4a0;border-radius:4px;overflow:hidden;margin-bottom:3px;}
+.quest-bar-fill{height:100%;background:linear-gradient(90deg,#5a9e32,#8BC34A);border-radius:4px;transition:width 400ms;}
+.quest-prog{color:#7a6040;font-size:0.85em;}
+
+/* Stat rows */
+.stat-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:3px 0;border-bottom:1px solid rgba(200,168,75,0.15);
+  font-size:0.78em;
+}
+.stat-row:last-child{border-bottom:none;}
+.stat-lbl{color:#7a6040;}
+.stat-val{font-weight:700;color:#3d2b0e;}
+.mini-prog{height:5px;background:#d4c4a0;border-radius:3px;overflow:hidden;margin-top:4px;}
+.mini-prog-fill{height:100%;background:linear-gradient(90deg,#5a9e32,#8BC34A);border-radius:3px;transition:width 300ms;}
+
+/* Event log */
+.event-item{
+  padding:4px 7px;border-bottom:1px solid rgba(200,168,75,0.2);
+  font-size:0.75em;color:#5a3e1b;
+}
+.event-item:last-child{border-bottom:none;}
+
+/* Prestige card */
+.prestige-card{
+  background:linear-gradient(135deg,rgba(180,100,255,0.15),rgba(120,50,200,0.1));
+  border:2px solid rgba(180,100,255,0.4);
+  border-radius:12px;padding:12px;text-align:center;
+}
+
+.prestige-title{
+  font-size:1em;font-weight:800;
+  background:linear-gradient(90deg,#9b59b6,#d7bde2);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:6px;
+}
+
+.prestige-info{font-size:0.78em;color:#5a3e1b;margin-bottom:4px;}
+.prestige-bonus{
+  font-size:0.85em;font-weight:700;
+  color:#9b59b6;margin-bottom:8px;
+}
+
+/* ======= ALERT ======= */
+#alert-box{
+  position:fixed;bottom:20px;left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:linear-gradient(135deg,#2d5a1b,#3d7a25);
+  color:#f5e6a3;padding:11px 22px;border-radius:25px;
+  border:2px solid #8BC34A;font-weight:700;font-size:0.92em;
+  box-shadow:0 6px 20px rgba(0,0,0,0.3);z-index:9999;
+  transition:transform 300ms cubic-bezier(0.34,1.56,0.64,1);
+  white-space:nowrap;pointer-events:none;
+}
+
+#alert-box.show{transform:translateX(-50%) translateY(0);}
+
+/* ======= PRESTIGE MODAL ======= */
+#prestige-modal{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.7);z-index:10000;
+  align-items:center;justify-content:center;
+}
+
+#prestige-modal.show{display:flex;}
+
+.modal-box{
+  background:linear-gradient(135deg,#2d1f4e,#1a0d2e);
+  border:3px solid rgba(180,100,255,0.6);
+  border-radius:20px;padding:30px;
+  text-align:center;max-width:380px;width:90%;
+  box-shadow:0 20px 60px rgba(155,89,182,0.4);
+  color:#f0e0ff;
+}
+
+.modal-title{font-size:1.6em;font-weight:800;color:#d7bde2;margin-bottom:10px;}
+.modal-desc{font-size:0.9em;color:#c9b8e8;margin-bottom:20px;line-height:1.5;}
+
+.modal-buttons{display:flex;gap:12px;justify-content:center;}
+
+.btn-confirm{
+  background:linear-gradient(135deg,#9b59b6,#6c3483);
+  border:none;color:#fff;padding:10px 24px;
+  border-radius:20px;font-family:'Nunito',sans-serif;
+  font-size:0.95em;font-weight:800;cursor:pointer;
+  box-shadow:0 4px 15px rgba(155,89,182,0.5);
+  transition:all 150ms;
+}
+
+.btn-confirm:hover{background:linear-gradient(135deg,#af7ac5,#7d3c98);}
+
+.btn-cancel{
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.3);
+  color:#e0d0f0;padding:10px 24px;
+  border-radius:20px;font-family:'Nunito',sans-serif;
+  font-size:0.95em;font-weight:700;cursor:pointer;
+  transition:all 150ms;
+}
+
+.btn-cancel:hover{background:rgba(255,255,255,0.2);}
+
+/* ======= FLOAT NUMBER ======= */
+.float-num{
+  position:fixed;font-weight:800;font-size:1.1em;
+  color:#4CAF50;text-shadow:0 1px 3px rgba(0,0,0,0.4);
+  pointer-events:none;z-index:9998;
+  animation:floatUp 900ms ease-out forwards;
+}
+
+@keyframes floatUp{
+  0%{opacity:1;transform:translateY(0);}
+  100%{opacity:0;transform:translateY(-60px);}
+}
+</style>
+</head>
+<body>
+
+
+  <div class="topbar-hud">
+    <div class="hud-chip">💰 <span id="hud-coins">0</span></div>
+    <div class="hud-chip">⭐ Niv.<span id="hud-level">1</span></div>
+    <div class="hud-chip">🛡️ <span id="hud-def">0</span></div>
+    <div class="hud-chip">
+      ⚡<span id="hud-energy">100</span>/<span id="hud-maxenergy">100</span>
+      <div class="energy-bar"><div class="energy-bar-fill" id="hud-energybar"></div></div>
+    </div>
+    <div class="hud-chip hud-prestige">✨ P<span id="hud-prestige">0</span> ×<span id="hud-pmult">1.00</span></div>
+  </div>
+</div>
+
+<!-- GAME LAYOUT -->
+<div class="game-layout">
+
+  <!-- LEFT : CRAFT + SELL -->
+  <div class="panel panel-left">
+    <div class="sec-title">🍞 Craft</div>
+    <div id="craftList"></div>
+
+    <div class="sec-title" style="margin-top:14px;">💰 Vendre</div>
+    <div id="sellList"></div>
+  </div>
+
+  <!-- CENTER : FARM + LIVESTOCK -->
+  <div class="panel panel-center">
+    <div class="sec-title">🌱 Récolter <span style="font-size:0.85em;color:#5a7a2b;font-weight:600;">(coûte 1 ⚡)</span></div>
+    <div class="farm-grid" id="farmGrid"></div>
+
+    <div class="sec-title">🐄 Élevage <span style="font-size:0.85em;color:#5a7a2b;font-weight:600;">(clic pour acheter)</span></div>
+    <div class="animal-grid" id="animalBuyGrid"></div>
+
+    <div class="sec-title">📦 Productions</div>
+    <div style="background:rgba(255,255,255,0.5);border:1px solid rgba(200,168,75,0.3);border-radius:10px;padding:10px;" id="animalProducts"></div>
+  </div>
+
+  <!-- RIGHT : tout en flex colonne scrollable -->
+  <div class="panel-right">
+
+    <!-- Météo + Stats côte à côte -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+
+      <div class="mini-card">
+        <div class="sec-title">🌤️ Météo</div>
+        <div class="weather-display">
+          <div class="weather-icon" id="weatherIcon">☀️</div>
+          <div class="weather-label" id="weatherLabel">Ensoleillé +30%</div>
+          <div class="weather-timer">Change dans <span id="weatherTimer">30</span>s</div>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div class="sec-title">📊 Stats</div>
+        <div class="stat-row"><span class="stat-lbl">XP</span><span class="stat-val"><span id="stat-xp">0</span>/<span id="stat-xpmax">100</span></span></div>
+        <div class="mini-prog"><div class="mini-prog-fill" id="xp-bar"></div></div>
+        <div class="stat-row" style="margin-top:5px;"><span class="stat-lbl">Récolté</span><span class="stat-val" id="stat-harvested">0</span></div>
+        <div class="stat-row"><span class="stat-lbl">Vendu</span><span class="stat-val" id="stat-sold">0</span></div>
+        <div class="stat-row"><span class="stat-lbl">Raids</span><span class="stat-val" id="stat-raids">0</span></div>
+        <div class="stat-row"><span class="stat-lbl">🏆 Rep</span><span class="stat-val" id="stat-rep">0</span></div>
+      </div>
+    </div>
+
+    <!-- PRESTIGE -->
+    <div class="mini-card prestige-card">
+      <div class="prestige-title">✨ PRESTIGE</div>
+      <div class="prestige-info">Recommence à zéro avec un bonus permanent</div>
+      <div class="prestige-bonus" id="prestige-bonus-text">Bonus actuel : ×1.00</div>
+      <div class="prestige-info" id="prestige-next-text">Prochain prestige : ×1.50</div>
+      <div class="prestige-info" style="color:#9b59b6;font-weight:700;" id="prestige-cost-text">Coût : 10 000 💰</div>
+      <button class="btn-prestige" id="prestige-btn" onclick="openPrestige()">✨ Prestige !</button>
+    </div>
+
+    <!-- UPGRADES infinis -->
+    <div class="mini-card">
+      <div class="sec-title">🔧 Upgrades <span style="font-size:0.85em;font-weight:600;">(niveaux infinis)</span></div>
+      <div id="upgradesList"></div>
+    </div>
+
+    <!-- PERKS one-shot -->
+    <div class="mini-card">
+      <div class="sec-title">✨ Perks</div>
+      <div id="perksList"></div>
+    </div>
+
+    <!-- QUÊTES -->
+    <div class="mini-card">
+      <div class="sec-title">📜 Quêtes</div>
+      <div id="questsList"></div>
+    </div>
+
+    <!-- EVENTS -->
+    <div class="mini-card">
+      <div class="sec-title">📣 Événements</div>
+      <div id="eventLog"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PRESTIGE MODAL -->
+<div id="prestige-modal">
+  <div class="modal-box">
+    <div class="modal-title">✨ Prestige</div>
+    <div class="modal-desc" id="modal-desc">
+      Tu vas tout perdre (coins, ressources, niveau...)<br>
+      mais gagner un bonus permanent ×1.50 sur toutes tes stats !<br><br>
+      <strong>Prestiges actuels : 0 → Bonus total : ×1.50</strong>
+    </div>
+    <div class="modal-buttons">
+      <button class="btn-confirm" onclick="confirmPrestige()">✨ Confirmer</button>
+      <button class="btn-cancel" onclick="closePrestige()">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- ALERT -->
+<div id="alert-box">🌾 Bienvenue !</div>
+
+<script>
+function goPage(p){location.href=p;}
+
+// ======= STATE =======
+var G={
+  wheat:0,barley:0,corn:0,rye:0,
+  bread:0,barleyBread:0,cornMeal:0,ryeBread:0,deluxeBread:0,brewedBeer:0,
+  chickens:0,cows:0,sheep:0,pigs:0,
+  eggs:0,milk:0,wool:0,bacon:0,butter:0,houblon:0,
+  coins:0,energy:100,maxEnergy:100,
+  click:1,auto:0,def:0,level:1,xp:0,xpMax:100,reputation:0,
+  upgradeLevels:{},   // {key: niveau}
+  perks:{},           // {key: true}
+  prestigeCount:0,
+  prestigeMultiplier:1.0,
+  totalHarvested:0,totalSold:0,totalClicks:0,timePlayed:0,raidsCount:0,
+  weather:'sunny',weatherModifier:1.3,
+  events:[]
+};
+
+// ======= DEFINITIONS =======
+const CROPS={
+  wheat: {emoji:'🌾',name:'Blé'},
+  barley:{emoji:'🌿',name:'Orge'},
+  corn:  {emoji:'🌽',name:'Maïs'},
+  rye:   {emoji:'🎋',name:'Seigle'}
+};
+
+const ANIMALS={
+  chickens:{emoji:'🐔',name:'Poules', cost:25, product:'eggs', productEmoji:'🥚',productName:'Œufs'},
+  cows:    {emoji:'🐄',name:'Vaches', cost:80, product:'milk', productEmoji:'🥛',productName:'Lait'},
+  sheep:   {emoji:'🐑',name:'Moutons',cost:45, product:'wool', productEmoji:'🧶',productName:'Laine'},
+  pigs:    {emoji:'🐷',name:'Cochons',cost:60, product:'bacon',productEmoji:'🥓',productName:'Lard'}
+};
+
+const CRAFTS=[
+  {key:'bread',      emoji:'🍞',name:'Pain',       req:'10 🌾',check:()=>G.wheat>=10,       do_:()=>{G.wheat-=10;G.bread+=1;}},
+  {key:'barleyBread',emoji:'🥖',name:'Pain Orge',  req:'10 🌿',check:()=>G.barley>=10,      do_:()=>{G.barley-=10;G.barleyBread+=1;}},
+  {key:'cornMeal',   emoji:'🌽',name:'Farine',     req:'10 🌽',check:()=>G.corn>=10,        do_:()=>{G.corn-=10;G.cornMeal+=1;}},
+  {key:'ryeBread',   emoji:'🍖',name:'Pain Seigle',req:'10 🎋',check:()=>G.rye>=10,         do_:()=>{G.rye-=10;G.ryeBread+=1;}},
+  {key:'butter',     emoji:'🧈',name:'Beurre',     req:'5 🥛', check:()=>G.milk>=5,         do_:()=>{G.milk-=5;G.butter+=1;}},
+  {key:'deluxeBread',emoji:'🥐',name:'Deluxe',     req:'5🍞+2🧈',check:()=>G.bread>=5&&G.butter>=2,do_:()=>{G.bread-=5;G.butter-=2;G.deluxeBread+=1;}},
+  {key:'houblon',    emoji:'🌿',name:'Houblon',    req:'8 🌿', check:()=>G.barley>=8,       do_:()=>{G.barley-=8;G.houblon+=1;}},
+  {key:'brewedBeer', emoji:'🍺',name:'Bière',      req:'15🌿+3H',check:()=>G.barley>=15&&G.houblon>=3,do_:()=>{G.barley-=15;G.houblon-=3;G.brewedBeer+=1;}}
+];
+
+const SELLS=[
+  {key:'bread',      emoji:'🍞',name:'Pain',       price:5},
+  {key:'barleyBread',emoji:'🥖',name:'Pain Orge',  price:8},
+  {key:'cornMeal',   emoji:'🌽',name:'Farine',     price:6},
+  {key:'ryeBread',   emoji:'🍖',name:'P.Seigle',   price:7},
+  {key:'eggs',       emoji:'🥚',name:'Œufs',       price:4},
+  {key:'milk',       emoji:'🥛',name:'Lait',       price:6},
+  {key:'wool',       emoji:'🧶',name:'Laine',      price:5},
+  {key:'bacon',      emoji:'🥓',name:'Lard',       price:8},
+  {key:'butter',     emoji:'🧈',name:'Beurre',     price:10},
+  {key:'deluxeBread',emoji:'🥐',name:'Deluxe',     price:25},
+  {key:'brewedBeer', emoji:'🍺',name:'Bière',      price:35}
+];
+
+// Upgrades infinis — baseCost × 1.6^niveau
+const UPGRADES={
+  autoFarm:   {name:'🚜 Auto Farm',  baseCost:50,  desc:'auto',   effectDesc:'+1 grain/sec par niveau',  apply:(lvl)=>{ G.auto=lvl; }},
+  clickBoost: {name:'💪 Boost Clic', baseCost:30,  desc:'click',  effectDesc:'+1 récolte/clic par niveau',apply:(lvl)=>{ G.click=1+lvl; }},
+  defBoost:   {name:'🛡️ Défense',   baseCost:40,  desc:'def',    effectDesc:'+1 défense par niveau',     apply:(lvl)=>{ G.def=lvl; }},
+  energyBoost:{name:'⚡ Énergie',    baseCost:30,  desc:'energy', effectDesc:'+20 énergie max par niveau', apply:(lvl)=>{ G.maxEnergy=100+lvl*20; }},
+  fertilizer: {name:'🧪 Engrais',   baseCost:60,  desc:'custom', effectDesc:'+12% rendement par niveau'},
+  betterFarm: {name:'🏞️ Ferme+',   baseCost:150, desc:'custom', effectDesc:'+15% tout par niveau'},
+  irrigation: {name:'💧 Irrigation', baseCost:200, desc:'custom', effectDesc:'+20% anti-sécheresse/niv'},
+  smartTools: {name:'🔧 Outils',    baseCost:180, desc:'custom', effectDesc:'+15% élevage par niveau'},
+  marketHub:  {name:'🏬 Hub',       baseCost:250, desc:'custom', effectDesc:'+15% prix vente par niveau'},
+  seedQuality:{name:'🌱 Semences',  baseCost:100, desc:'custom', effectDesc:'+10% qualité par niveau'}
+};
+
+const PERKS={
+  extraXP:    {name:'⭐ XP Boost',   cost:120, desc:'+50% XP gagné'},
+  luckyHand:  {name:'🍀 Chance',     cost:90,  desc:'Parfois 2x récolte'},
+  tradeExpert:{name:'💼 Expert',     cost:200, desc:'+20% prix de vente'},
+  animalPro:  {name:'🐾 Éleveur Pro',cost:160, desc:'Animaux produisent 2x'},
+  weatherPro: {name:'🌈 Météo Pro',  cost:140, desc:'Moins de sécheresse'}
+};
+
+const QUESTS=[
+  {name:'🌾 Agriculteur', desc:'Récolter 100 blé',   type:'wheat',   target:100, reward:50},
+  {name:'⭐ Montée',      desc:'Atteindre niveau 5',  type:'level',   target:5,   reward:100},
+  {name:'🛡️ Défenseur',  desc:'Défense à 10',        type:'def',     target:10,  reward:80},
+  {name:'💰 Riche',       desc:'Avoir 500 coins',     type:'coins',   target:500, reward:150},
+  {name:'🐄 Éleveur',     desc:'10 animaux total',    type:'animals', target:10,  reward:120},
+  {name:'🍺 Brasseur',    desc:'Brasser 5 bières',    type:'brewedBeer',target:5, reward:200},
+  {name:'✨ Prestigieux', desc:'Faire 1 prestige',    type:'prestige',target:1,   reward:500}
+];
+
+// ======= HELPERS =======
+function upgradeCost(key){
+  let u=UPGRADES[key];
+  let lvl=G.upgradeLevels[key]||0;
+  return Math.round(u.baseCost * Math.pow(1.6, lvl));
+}
+
+function upgradeBonus(key){
+  // retourne le multiplicateur actuel pour les upgrades custom
+  let lvl=G.upgradeLevels[key]||0;
+  if(lvl===0)return 1;
+  const rates={fertilizer:0.12,betterFarm:0.15,irrigation:0.20,smartTools:0.15,marketHub:0.15,seedQuality:0.10};
+  return 1+(rates[key]||0)*lvl;
+}
+
+function prestigeCost(){
+  return Math.round(10000 * Math.pow(3, G.prestigeCount));
+}
+
+function prestigeNextMult(){
+  return parseFloat((1.0 + (G.prestigeCount+1)*0.5).toFixed(2));
+}
+
+// ======= SAVE / LOAD =======
+function save(){
+  try{localStorage.setItem('farmEmpire3',JSON.stringify(G));}catch(e){}
+}
+
+function load(){
+  var d=localStorage.getItem('farmEmpire3');
+  if(!d)return;
+  try{
+    var s=JSON.parse(d);
+    Object.keys(G).forEach(k=>{if(s[k]!==undefined)G[k]=s[k];});
+  }catch(e){}
+  if(!G.maxEnergy||G.maxEnergy<=0)G.maxEnergy=100;
+  if(G.energy>G.maxEnergy)G.energy=G.maxEnergy;
+  if(!G.upgradeLevels)G.upgradeLevels={};
+  if(!G.perks)G.perks={};
+  if(!G.prestigeCount)G.prestigeCount=0;
+  if(!G.prestigeMultiplier)G.prestigeMultiplier=1.0;
+}
+
+// ======= HARVEST =======
+function harvest(type,evt){
+  if(G.energy<=0){showAlert('⚡ Plus d\'énergie !');return;}
+  G.energy-=1;
+  G.totalClicks++;
+
+  let mod=G.weatherModifier;
+  if(G.weather==='drought') mod*=Math.max(0.3, 1-(0.7/upgradeBonus('irrigation')));
+  mod*=upgradeBonus('fertilizer');
+  mod*=upgradeBonus('betterFarm');
+  mod*=upgradeBonus('seedQuality');
+  mod*=G.prestigeMultiplier;
+
+  let amount=Math.max(1,Math.floor(G.click*mod));
+  if(G.perks.luckyHand&&Math.random()<0.2) amount*=2;
+
+  G[type]+=amount;
+  G.totalHarvested+=amount;
+  gainXP(5);
+  floatNum('+'+amount,evt);
+  update();
+}
+
+// ======= CRAFT =======
+function craft(idx){
+  let c=CRAFTS[idx];
+  if(!c.check()){showAlert('❌ Ressources insuffisantes');return;}
+  c.do_();
+  gainXP(8);
+  showAlert('✅ '+c.name+' crafté !');
+  update();
+}
+
+// ======= SELL =======
+function sell(key){
+  let item=SELLS.find(s=>s.key===key);
+  if(!item||G[key]<=0){showAlert('❌ Rien à vendre !');return;}
+  let price=item.price;
+  price*=upgradeBonus('marketHub');
+  if(G.perks.tradeExpert)price*=1.2;
+  price*=G.prestigeMultiplier;
+  price=Math.round(price);
+  G.coins+=price;
+  G[key]--;
+  G.totalSold++;
+  gainXP(6);
+  showAlert('💰 +'+price+' coins !');
+  update();
+}
+
+// ======= BUY ANIMAL =======
+function buyAnimal(key){
+  let a=ANIMALS[key];
+  let cost=Math.round(a.cost/G.prestigeMultiplier); // prestige réduit les coûts animaux
+  if(G.coins<cost){showAlert('💰 Pas assez de coins !');return;}
+  G.coins-=cost;
+  G[key]++;
+  gainXP(10);
+  showAlert('🎉 '+a.name.slice(0,-1)+' acheté !');
+  update();
+}
+
+// ======= UPGRADE (infini) =======
+function buyUpgrade(key){
+  let cost=upgradeCost(key);
+  if(G.coins<cost){showAlert('💰 Pas assez de coins !');return;}
+  G.coins-=cost;
+  if(!G.upgradeLevels[key])G.upgradeLevels[key]=0;
+  G.upgradeLevels[key]++;
+  let lvl=G.upgradeLevels[key];
+
+  // Applique effets directs
+  let u=UPGRADES[key];
+  if(u.apply) u.apply(lvl);
+
+  showAlert('🔧 '+u.name+' niveau '+lvl+' !');
+  gainXP(15);
+  update();
+}
+
+// ======= PERK =======
+function buyPerk(key){
+  let p=PERKS[key];
+  if(G.perks[key]){showAlert('✅ Déjà possédé !');return;}
+  if(G.coins<p.cost){showAlert('💰 Pas assez de coins !');return;}
+  G.coins-=p.cost;
+  G.perks[key]=true;
+  showAlert('✨ '+p.name+' activé !');
+  gainXP(50);
+  update();
+}
+
+// ======= XP =======
+function gainXP(amount){
+  let mult=(G.perks.extraXP?1.5:1)*G.prestigeMultiplier;
+  G.xp+=Math.round(amount*mult);
+  while(G.xp>=G.xpMax){
+    G.xp-=G.xpMax;
+    G.level++;
+    G.xpMax=Math.round(G.xpMax*1.15);
+    G.maxEnergy+=5;
+    G.energy=Math.min(G.energy+10,G.maxEnergy);
+    showAlert('🎊 LEVEL UP ! Niveau '+G.level);
+    addEvent('🎉 Niveau '+G.level+' atteint !');
+  }
+}
+
+// ======= PRESTIGE =======
+function openPrestige(){
+  let cost=prestigeCost();
+  let nextMult=prestigeNextMult();
+  let newTotal=(1.0+(G.prestigeCount+1)*0.5).toFixed(2);
+  document.getElementById('modal-desc').innerHTML=
+    `Tu vas perdre coins, ressources, niveau et upgrades...<br>
+    Mais ton bonus permanent passera de <strong>×${G.prestigeMultiplier.toFixed(2)}</strong> à <strong>×${newTotal}</strong> !<br><br>
+    <strong>Coût : ${cost.toLocaleString()} 💰</strong><br>
+    <span style="font-size:0.85em;color:#c9b8e8;">Tu gardes tes Perks !</span>`;
+  document.getElementById('prestige-modal').classList.add('show');
+}
+
+function closePrestige(){
+  document.getElementById('prestige-modal').classList.remove('show');
+}
+
+function confirmPrestige(){
+  let cost=prestigeCost();
+  if(G.coins<cost){showAlert('💰 Pas assez de coins pour le prestige !');closePrestige();return;}
+
+  G.prestigeCount++;
+  G.prestigeMultiplier=parseFloat((1.0+G.prestigeCount*0.5).toFixed(2));
+
+  // Reset mais garde perks + prestigeCount + prestigeMultiplier
+  let savedPerks=G.perks;
+  let savedPrestigeCount=G.prestigeCount;
+  let savedPrestigeMult=G.prestigeMultiplier;
+  let savedEvents=G.events;
+
+  // Reset ressources
+  G.wheat=0;G.barley=0;G.corn=0;G.rye=0;
+  G.bread=0;G.barleyBread=0;G.cornMeal=0;G.ryeBread=0;G.deluxeBread=0;G.brewedBeer=0;
+  G.chickens=0;G.cows=0;G.sheep=0;G.pigs=0;
+  G.eggs=0;G.milk=0;G.wool=0;G.bacon=0;G.butter=0;G.houblon=0;
+  G.coins=0;G.energy=100;G.maxEnergy=100;
+  G.click=1;G.auto=0;G.def=0;G.level=1;G.xp=0;G.xpMax=100;G.reputation=0;
+  G.upgradeLevels={};
+  G.totalHarvested=0;G.totalSold=0;G.totalClicks=0;G.raidsCount=0;
+
+  // Restaure
+  G.perks=savedPerks;
+  G.prestigeCount=savedPrestigeCount;
+  G.prestigeMultiplier=savedPrestigeMult;
+  G.events=savedEvents;
+
+  closePrestige();
+  addEvent('✨ Prestige '+G.prestigeCount+' ! Bonus ×'+G.prestigeMultiplier.toFixed(2));
+  showAlert('✨ Prestige ! Bonus ×'+G.prestigeMultiplier.toFixed(2)+' actif !');
+  update();
+}
+
+// ======= ALERT =======
+let alertTimer=null;
+function showAlert(msg){
+  let box=document.getElementById('alert-box');
+  box.textContent=msg;
+  box.classList.add('show');
+  if(alertTimer)clearTimeout(alertTimer);
+  alertTimer=setTimeout(()=>box.classList.remove('show'),2200);
+}
+
+// ======= FLOAT NUMBER =======
+function floatNum(txt,evt){
+  if(!evt)return;
+  let el=document.createElement('div');
+  el.className='float-num';
+  el.textContent=txt;
+  el.style.left=(evt.clientX-10)+'px';
+  el.style.top=(evt.clientY-10)+'px';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),900);
+}
+
+// ======= EVENTS =======
+function addEvent(msg){
+  G.events.unshift('['+new Date().toLocaleTimeString()+'] '+msg);
+  if(G.events.length>14)G.events.pop();
+  let log=document.getElementById('eventLog');
+  if(log)log.innerHTML=G.events.map(e=>`<div class="event-item">${e}</div>`).join('');
+}
+
+// ======= WEATHER =======
+let wTimer=0;
+const WEATHERS=[
+  {key:'sunny',  icon:'☀️', label:'Ensoleillé +30%', mod:1.3, msg:'☀️ Beau temps !'},
+  {key:'rainy',  icon:'🌧️',label:'Pluvieux +15%',   mod:1.15,msg:'🌧️ Il pleut !'},
+  {key:'drought',icon:'🔥', label:'Sécheresse -50%', mod:0.5, msg:'🔥 Sécheresse !'},
+  {key:'windy',  icon:'💨', label:'Venteux +5%',     mod:1.05,msg:'💨 Vent fort !'},
+  {key:'storm',  icon:'⛈️',label:'Orage -30%',      mod:0.7, msg:'⛈️ Orage !'}
+];
+
+setInterval(()=>{
+  wTimer++;
+  let el=document.getElementById('weatherTimer');
+  if(el)el.textContent=Math.max(0,30-(wTimer%30));
+  if(wTimer%30===0){
+    let pool=WEATHERS.filter(w=>!(w.key==='drought'&&G.perks.weatherPro));
+    let w=pool[Math.floor(Math.random()*pool.length)];
+    G.weather=w.key;G.weatherModifier=w.mod;
+    document.getElementById('weatherIcon').textContent=w.icon;
+    document.getElementById('weatherLabel').textContent=w.label;
+    addEvent(w.msg);
+  }
+},1000);
+
+// ======= AUTO FARM =======
+setInterval(()=>{
+  if(G.auto>0){
+    let crops=['wheat','barley','corn','rye'];
+    let c=crops[Math.floor(Math.random()*crops.length)];
+    let mod=G.weatherModifier;
+    if(G.weather==='drought')mod*=Math.max(0.3,1-(0.7/upgradeBonus('irrigation')));
+    mod*=upgradeBonus('fertilizer')*upgradeBonus('betterFarm')*G.prestigeMultiplier;
+    let amount=Math.max(1,Math.floor(G.auto*mod));
+    G[c]+=amount;G.totalHarvested+=amount;
+    update();
+  }
+},1000);
+
+// ======= LIVESTOCK PRODUCTION =======
+setInterval(()=>{
+  let mult=(G.perks.animalPro?2:1)*upgradeBonus('smartTools')*G.prestigeMultiplier;
+  if(G.chickens>0&&Math.random()<0.3) G.eggs+=Math.max(1,Math.floor(G.chickens*0.5*mult));
+  if(G.cows>0&&Math.random()<0.2)    G.milk+=Math.max(1,Math.floor(G.cows*0.4*mult));
+  if(G.sheep>0&&Math.random()<0.25)  G.wool+=Math.max(1,Math.floor(G.sheep*0.4*mult));
+  if(G.pigs>0&&Math.random()<0.2)    G.bacon+=Math.max(1,Math.floor(G.pigs*0.4*mult));
+  update();
+},5000);
+
+// ======= ENERGY REGEN =======
+setInterval(()=>{
+  if(G.energy<G.maxEnergy){G.energy=Math.min(G.maxEnergy,G.energy+1);update();}
+  G.timePlayed++;
+},10000);
+
+// ======= RANDOM EVENTS =======
+setInterval(()=>{
+  if(Math.random()<0.12){
+    let evts=[
+      {msg:'🎁 Bonus ! +100 coins',   fx:()=>G.coins+=Math.round(100*G.prestigeMultiplier)},
+      {msg:'🍀 Récolte ! +50 blé',    fx:()=>G.wheat+=50},
+      {msg:'😔 Maladie ! -20 blé',    fx:()=>G.wheat=Math.max(0,G.wheat-20)},
+      {msg:'🏆 Concours ! +30 rep',   fx:()=>G.reputation+=30},
+      {msg:'🌧️ Pluie ! +30 orge',    fx:()=>G.barley+=30},
+      {msg:'🐛 Parasites ! -15 maïs', fx:()=>G.corn=Math.max(0,G.corn-15)}
+    ];
+    let e=evts[Math.floor(Math.random()*evts.length)];
+    e.fx();addEvent(e.msg);showAlert(e.msg);update();
+  }
+},18000);
+
+// ======= RAIDS =======
+setInterval(()=>{
+  if(Math.random()<0.05){
+    let loss=Math.max(0,Math.floor(G.coins*0.1)-G.def*5);
+    if(loss>0){
+      G.coins-=loss;G.raidsCount++;
+      addEvent('⚔️ Raid ! -'+loss+' coins');showAlert('⚔️ Raid ! -'+loss+' coins');
+    }else{
+      addEvent('⚔️ Raid repoussé ! (Défense '+G.def+')');showAlert('🛡️ Raid repoussé !');
+    }
+    update();
+  }
+},30000);
+
+// ======= UPDATE UI =======
+function update(){
+  // HUD
+  document.getElementById('hud-coins').textContent=G.coins;
+  document.getElementById('hud-level').textContent=G.level;
+  document.getElementById('hud-def').textContent=G.def;
+  document.getElementById('hud-energy').textContent=Math.ceil(G.energy);
+  document.getElementById('hud-maxenergy').textContent=G.maxEnergy;
+  document.getElementById('hud-energybar').style.width=(G.energy/G.maxEnergy*100)+'%';
+  document.getElementById('hud-prestige').textContent=G.prestigeCount;
+  document.getElementById('hud-pmult').textContent=G.prestigeMultiplier.toFixed(2);
+
+  // Stats
+  document.getElementById('stat-xp').textContent=G.xp;
+  document.getElementById('stat-xpmax').textContent=G.xpMax;
+  document.getElementById('xp-bar').style.width=(G.xp/G.xpMax*100)+'%';
+  document.getElementById('stat-harvested').textContent=G.totalHarvested;
+  document.getElementById('stat-sold').textContent=G.totalSold;
+  document.getElementById('stat-raids').textContent=G.raidsCount;
+  document.getElementById('stat-rep').textContent=G.reputation;
+
+  // Prestige section
+  let pCost=prestigeCost();
+  let canPrestige=G.coins>=pCost;
+  document.getElementById('prestige-bonus-text').textContent='Bonus actuel : ×'+G.prestigeMultiplier.toFixed(2);
+  document.getElementById('prestige-next-text').textContent='Prochain : ×'+prestigeNextMult().toFixed(2);
+  document.getElementById('prestige-cost-text').textContent='Coût : '+pCost.toLocaleString()+' 💰';
+  document.getElementById('prestige-btn').disabled=!canPrestige;
+
+  // Farm grid
+  let gainBase=Math.max(1,Math.floor(G.click*G.weatherModifier*G.prestigeMultiplier));
+  let fHTML='';
+  Object.keys(CROPS).forEach(key=>{
+    let c=CROPS[key];
+    fHTML+=`<div class="farm-plot" onclick="harvest('${key}',event)">
+      <div class="farm-gain">+${gainBase}</div>
+      <span class="farm-emoji">${c.emoji}</span>
+      <div class="farm-name">${c.name}</div>
+      <div class="farm-stock">${G[key]} en stock</div>
+    </div>`;
+  });
+  document.getElementById('farmGrid').innerHTML=fHTML;
+
+  // Animal grid
+  let aHTML='';
+  Object.keys(ANIMALS).forEach(key=>{
+    let a=ANIMALS[key];
+    let cost=Math.round(a.cost/G.prestigeMultiplier);
+    aHTML+=`<div class="animal-card" onclick="buyAnimal('${key}')">
+      <div class="animal-emoji">${a.emoji}</div>
+      <div class="animal-name">${a.name}</div>
+      <div class="animal-count">${G[key]}</div>
+      <div class="animal-cost">Acheter: ${cost}💰</div>
+    </div>`;
+  });
+  document.getElementById('animalBuyGrid').innerHTML=aHTML;
+
+  // Animal products
+  let pHTML='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">';
+  Object.keys(ANIMALS).forEach(key=>{
+    let a=ANIMALS[key];
+    pHTML+=`<div style="display:flex;align-items:center;gap:7px;font-size:0.85em;">
+      <span style="font-size:1.4em;">${a.productEmoji}</span>
+      <div><div style="font-weight:700;color:#3d2b0e;">${a.productName}</div>
+      <div style="color:#5a7a3b;font-weight:700;">${G[a.product]}</div></div>
+    </div>`;
+  });
+  pHTML+=`<div style="display:flex;align-items:center;gap:7px;font-size:0.85em;">
+    <span style="font-size:1.4em;">🌿</span>
+    <div><div style="font-weight:700;color:#3d2b0e;">Houblon</div><div style="color:#5a7a3b;font-weight:700;">${G.houblon}</div></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:7px;font-size:0.85em;">
+    <span style="font-size:1.4em;">🧈</span>
+    <div><div style="font-weight:700;color:#3d2b0e;">Beurre</div><div style="color:#5a7a3b;font-weight:700;">${G.butter}</div></div>
+  </div>`;
+  pHTML+='</div>';
+  document.getElementById('animalProducts').innerHTML=pHTML;
+
+  // Craft list
+  let cHTML='';
+  CRAFTS.forEach((c,i)=>{
+    let can=c.check();
+    cHTML+=`<div class="craft-item${can?'':' disabled'}">
+      <div class="craft-left">
+        <span class="craft-emoji">${c.emoji}</span>
+        <div><div class="craft-name">${c.name}</div><div class="craft-req">${c.req}</div></div>
+      </div>
+      <div class="craft-right">
+        <div class="craft-stock">Stock: ${G[c.key]}</div>
+        <button class="btn-small" ${can?`onclick="craft(${i})"`:'disabled'}>Craft</button>
+      </div>
+    </div>`;
+  });
+  document.getElementById('craftList').innerHTML=cHTML;
+
+  // Sell list
+  let sHTML='';
+  SELLS.forEach(s=>{
+    let has=G[s.key]>0;
+    let price=Math.round(s.price*upgradeBonus('marketHub')*(G.perks.tradeExpert?1.2:1)*G.prestigeMultiplier);
+    sHTML+=`<div class="craft-item${has?'':' disabled'}">
+      <div class="craft-left">
+        <span class="craft-emoji">${s.emoji}</span>
+        <div><div class="craft-name">${s.name}</div><div class="craft-req">Stock: ${G[s.key]}</div></div>
+      </div>
+      <div class="craft-right">
+        <div class="sell-price">+${price}💰</div>
+        <button class="btn-small btn-sell" ${has?`onclick="sell('${s.key}')"`:
+        'disabled'}>Vendre</button>
+      </div>
+    </div>`;
+  });
+  document.getElementById('sellList').innerHTML=sHTML;
+
+  // Upgrades infinis
+  let uHTML='';
+  Object.keys(UPGRADES).forEach(key=>{
+    let u=UPGRADES[key];
+    let lvl=G.upgradeLevels[key]||0;
+    let cost=upgradeCost(key);
+    let canBuy=G.coins>=cost;
+    uHTML+=`<div class="upg-item">
+      <div>
+        <div class="upg-name">${u.name} <span class="upg-level">Niv.${lvl}</span></div>
+        <div class="upg-desc">${u.effectDesc}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;margin-left:8px;">
+        <div class="upg-cost">${cost.toLocaleString()}💰</div>
+        <button class="btn-small" ${canBuy?`onclick="buyUpgrade('${key}')"`:'disabled'}>
+          ${canBuy?'Acheter':'💰'}
+        </button>
+      </div>
+    </div>`;
+  });
+  document.getElementById('upgradesList').innerHTML=uHTML;
+
+  // Perks one-shot
+  let pkHTML='';
+  Object.keys(PERKS).forEach(key=>{
+    let p=PERKS[key];
+    let owned=G.perks[key];
+    let canBuy=!owned&&G.coins>=p.cost;
+    pkHTML+=`<div class="upg-item${owned?' owned':''}">
+      <div>
+        <div class="upg-name">${p.name} ${owned?'<span class="upg-level">✓</span>':''}</div>
+        <div class="upg-desc">${p.desc}</div>
+      </div>
+      ${owned
+        ?'<span style="color:#5a9e32;font-size:1.2em;">✅</span>'
+        :`<div style="text-align:right;flex-shrink:0;margin-left:8px;">
+            <div class="upg-cost">${p.cost}💰</div>
+            <button class="btn-small" ${canBuy?`onclick="buyPerk('${key}')"`:'disabled'}>
+              ${canBuy?'Acheter':'💰'}
+            </button>
+          </div>`
+      }
+    </div>`;
+  });
+  document.getElementById('perksList').innerHTML=pkHTML;
+
+  // Quêtes
+  let qHTML='';
+  QUESTS.forEach(q=>{
+    let prog=0;
+    if(q.type==='wheat')        prog=G.totalHarvested;
+    else if(q.type==='level')   prog=G.level;
+    else if(q.type==='def')     prog=G.def;
+    else if(q.type==='coins')   prog=G.coins;
+    else if(q.type==='animals') prog=G.chickens+G.cows+G.sheep+G.pigs;
+    else if(q.type==='brewedBeer') prog=G.brewedBeer;
+    else if(q.type==='prestige') prog=G.prestigeCount;
+
+    let pct=Math.min(100,Math.round(prog/q.target*100));
+    let done=prog>=q.target;
+
+    qHTML+=`<div class="quest-item">
+      <div class="quest-name">${q.name} ${done?'✅':''}</div>
+      <div class="quest-desc">${q.desc} — 🏆 ${q.reward}💰</div>
+      <div class="quest-bar-bg">
+        <div class="quest-bar-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="quest-prog">${Math.min(prog,q.target)} / ${q.target} (${pct}%)</div>
+      ${done&&!q.claimed
+        ?`<button class="btn-small" style="margin-top:5px;" onclick="claimQuest(${QUESTS.indexOf(q)})">
+            Réclamer ${q.reward}💰
+          </button>`
+        :done?'<div style="font-size:0.72em;color:#5a9e32;margin-top:3px;">Récompense réclamée ✓</div>':''
+      }
+    </div>`;
+  });
+  document.getElementById('questsList').innerHTML=qHTML;
+
+  // Events log
+  document.getElementById('eventLog').innerHTML=
+    G.events.length
+      ? G.events.map(e=>`<div class="event-item">${e}</div>`).join('')
+      : '<div class="event-item" style="color:#aaa;">Aucun événement...</div>';
+
+  save();
+}
+
+// ======= CLAIM QUEST =======
+function claimQuest(idx){
+  let q=QUESTS[idx];
+  if(q.claimed)return;
+  q.claimed=true;
+  G.coins+=q.reward;
+  showAlert('🏆 Quête terminée ! +'+q.reward+' coins !');
+  addEvent('📜 Quête "'+q.name+'" complétée !');
+  update();
+}
+
+// ======= INIT =======
+load();
+
+// Applique les upgrades chargés
+Object.keys(UPGRADES).forEach(key=>{
+  let u=UPGRADES[key];
+  let lvl=G.upgradeLevels[key]||0;
+  if(u.apply&&lvl>0) u.apply(lvl);
+});
+
+update();
+addEvent('🌾 Bienvenue sur Farm Empire !');
+showAlert('🌾 Bienvenue sur Farm Empire !');
+</script>
+</body>
+</html>

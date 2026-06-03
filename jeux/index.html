@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Game Hub</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:#111;
+  font-family:sans-serif;
+}
+
+/* container global */
+.wrapper{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* slider horizontal */
+.slider{
+  display:flex;
+  height:100%;
+  transition:transform 0.4s ease;
+}
+
+/* chaque jeu */
+.slide{
+  min-width:100vw;
+  height:100%;
+}
+
+/* iframe */
+iframe{
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+/* boutons */
+.nav{
+  position:absolute;
+  top:10px;
+  right:10px;        /* à droite */
+  left:auto;         /* annule le centrage */
+  transform:none;    /* annule le translateX */
+  z-index:10;
+  display:flex;
+  gap:5px;
+}
+
+button{
+  padding:4px 8px;
+  font-size:12px;    /* plus petit */
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <div class="nav">
+    <button onclick="prev()">⬅️</button>
+    <button onclick="next()">➡️</button>
+  </div>
+
+  <div class="slider" id="slider">
+
+<div class="slide">
+      <iframe src="accueil.html"></iframe>
+    </div>
+
+    <div class="slide">
+      <iframe src="hive-clickers.html"></iframe>
+    </div>
+
+    <div class="slide">
+      <iframe src="farm.php"></iframe>
+    </div>
+	
+	
+  </div>
+
+</div>
+
+<script>
+let current = 0;
+const slider = document.getElementById("slider");
+const total = document.querySelectorAll(".slide").length;
+
+function update(){
+  slider.style.transform = "translateX(-" + (current * 100) + "vw)";
+}
+
+function next(){
+  if(current < total - 1){
+    current++;
+    update();
+  }
+}
+
+function prev(){
+  if(current > 0){
+    current--;
+    update();
+  }
+}
+</script>
+
+</body>
+</html>
