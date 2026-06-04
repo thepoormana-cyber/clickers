@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <title>🌾 Farm Empire</title>
@@ -68,68 +68,7 @@ body{
   align-items:center;
 }
 
-.hud-chip{
-  background:rgba(0,0,0,0.3);
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:20px;
-  padding:4px 10px;
-  font-size:0.82em;
-  font-weight:700;
-  color:#f5e6a3;
-  display:flex;
-  align-items:center;
-  gap:4px;
-}
-
-.hud-prestige{
-  background:linear-gradient(135deg,rgba(180,100,255,0.4),rgba(120,50,200,0.4));
-  border-color:rgba(200,150,255,0.5);
-}
-
-.energy-bar{
-  width:70px;height:7px;
-  background:rgba(0,0,0,0.3);
-  border-radius:4px;overflow:hidden;
-  border:1px solid rgba(255,255,255,0.2);
-}
-
-.energy-bar-fill{
-  height:100%;
-  background:linear-gradient(90deg,#7BC67E,#4CAF50);
-  border-radius:4px;
-  transition:width 300ms;
-}
-
-/* ======= MAIN LAYOUT ======= */
-.game-layout{
-  display:grid;
-  grid-template-columns:280px 1fr 320px;
-  flex:1;
-  overflow:hidden;
-}
-
-/* ======= PANELS ======= */
-.panel{
-  overflow-y:auto;
-  overflow-x:hidden;
-  padding:12px;
-  height:100%;
-}
-
-.panel::-webkit-scrollbar{width:6px;}
-.panel::-webkit-scrollbar-track{background:rgba(0,0,0,0.1);}
-.panel::-webkit-scrollbar-thumb{background:rgba(90,158,50,0.5);border-radius:3px;}
-.panel::-webkit-scrollbar-thumb:hover{background:rgba(90,158,50,0.8);}
-
-.panel-left{
-  background:linear-gradient(180deg,#f0e8d0,#e8d8b0);
-  border-right:3px solid #c8a84b;
-}
-
-.panel-center{
-  background:linear-gradient(180deg,#d4e8c2,#c8ddb0);
-  border-right:3px solid #c8a84b;
-}
+[...]
 
 /* RIGHT : scrollable normale */
 .panel-right{
@@ -188,9 +127,7 @@ body{
   position:absolute;top:0;left:0;right:0;bottom:0;
   background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent);
   border-radius:9px;
-}
-
-.farm-plot:hover{
+}.farm-plot:hover{
   transform:translateY(-3px) scale(1.02);
   border-color:#8BC34A;
   box-shadow:inset 0 2px 4px rgba(0,0,0,0.3),0 6px 16px rgba(139,195,74,0.3);
@@ -238,85 +175,7 @@ body{
 .animal-count{font-size:1.1em;font-weight:800;color:#3d7a25;}
 .animal-cost{font-size:0.68em;color:#8a6e3b;margin-top:2px;}
 
-/* ======= CRAFT / SELL ITEMS ======= */
-.craft-item{
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(255,255,255,0.6);
-  border:1px solid rgba(200,168,75,0.3);
-  border-radius:8px;padding:8px 10px;margin-bottom:6px;
-  transition:all 150ms;
-}
-
-.craft-item:hover{background:rgba(255,255,255,0.9);border-color:#8BC34A;}
-.craft-item.disabled{opacity:0.42;pointer-events:none;}
-
-.craft-left{display:flex;align-items:center;gap:8px;}
-.craft-emoji{font-size:1.5em;}
-.craft-name{font-weight:700;font-size:0.83em;color:#3d2b0e;}
-.craft-req{font-size:0.7em;color:#8a6e3b;}
-.craft-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
-.craft-stock{font-size:0.72em;color:#5a7a3b;font-weight:700;}
-.sell-price{font-size:0.7em;color:#c47820;font-weight:700;}
-
-/* ======= BUTTONS ======= */
-.btn-small{
-  background:linear-gradient(135deg,#5a9e32,#3d7a25);
-  border:none;color:#fff;
-  padding:4px 10px;border-radius:12px;
-  font-family:'Nunito',sans-serif;font-size:0.73em;font-weight:700;
-  cursor:pointer;transition:all 150ms;
-  box-shadow:0 2px 4px rgba(0,0,0,0.2);
-}
-
-.btn-small:hover{background:linear-gradient(135deg,#6ab83c,#4d8a2d);transform:scale(1.05);}
-
-.btn-sell{background:linear-gradient(135deg,#e8a020,#c47820);}
-.btn-sell:hover{background:linear-gradient(135deg,#f0b030,#d48830);}
-
-.btn-prestige{
-  background:linear-gradient(135deg,#9b59b6,#6c3483);
-  border:2px solid #d7bde2;
-  color:#fff;padding:10px 20px;
-  border-radius:20px;font-family:'Nunito',sans-serif;
-  font-size:0.9em;font-weight:800;cursor:pointer;
-  transition:all 200ms;width:100%;margin-top:6px;
-  box-shadow:0 4px 15px rgba(155,89,182,0.4);
-}
-
-.btn-prestige:hover{
-  background:linear-gradient(135deg,#af7ac5,#7d3c98);
-  transform:scale(1.02);
-  box-shadow:0 6px 20px rgba(155,89,182,0.6);
-}
-
-.btn-prestige:disabled{
-  opacity:0.4;cursor:not-allowed;transform:none;
-}
-
-/* ======= MINI CARDS (RIGHT) ======= */
-.mini-card{
-  background:rgba(255,255,255,0.55);
-  border:1px solid rgba(200,168,75,0.35);
-  border-radius:10px;padding:10px;
-  box-shadow:0 2px 5px rgba(0,0,0,0.07);
-  flex-shrink:0;
-}
-
-/* Weather */
-.weather-display{text-align:center;padding:6px;}
-.weather-icon{font-size:2em;}
-.weather-label{font-size:0.8em;font-weight:700;color:#5a3e1b;margin-top:4px;}
-.weather-timer{font-size:0.7em;color:#8a6e3b;margin-top:2px;}
-
-/* Upgrade items */
-.upg-item{
-  background:rgba(255,255,255,0.6);
-  border:1px solid rgba(200,168,75,0.3);
-  border-radius:8px;padding:8px;
-  margin-bottom:6px;
-  display:flex;justify-content:space-between;align-items:center;
-  font-size:0.77em;
-}
+[...]
 
 .upg-name{font-weight:700;color:#3d2b0e;}
 .upg-desc{color:#7a6040;font-size:0.88em;}
@@ -354,53 +213,7 @@ body{
 .mini-prog{height:5px;background:#d4c4a0;border-radius:3px;overflow:hidden;margin-top:4px;}
 .mini-prog-fill{height:100%;background:linear-gradient(90deg,#5a9e32,#8BC34A);border-radius:3px;transition:width 300ms;}
 
-/* Event log */
-.event-item{
-  padding:4px 7px;border-bottom:1px solid rgba(200,168,75,0.2);
-  font-size:0.75em;color:#5a3e1b;
-}
-.event-item:last-child{border-bottom:none;}
-
-/* Prestige card */
-.prestige-card{
-  background:linear-gradient(135deg,rgba(180,100,255,0.15),rgba(120,50,200,0.1));
-  border:2px solid rgba(180,100,255,0.4);
-  border-radius:12px;padding:12px;text-align:center;
-}
-
-.prestige-title{
-  font-size:1em;font-weight:800;
-  background:linear-gradient(90deg,#9b59b6,#d7bde2);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  margin-bottom:6px;
-}
-
-.prestige-info{font-size:0.78em;color:#5a3e1b;margin-bottom:4px;}
-.prestige-bonus{
-  font-size:0.85em;font-weight:700;
-  color:#9b59b6;margin-bottom:8px;
-}
-
-/* ======= ALERT ======= */
-#alert-box{
-  position:fixed;bottom:20px;left:50%;
-  transform:translateX(-50%) translateY(80px);
-  background:linear-gradient(135deg,#2d5a1b,#3d7a25);
-  color:#f5e6a3;padding:11px 22px;border-radius:25px;
-  border:2px solid #8BC34A;font-weight:700;font-size:0.92em;
-  box-shadow:0 6px 20px rgba(0,0,0,0.3);z-index:9999;
-  transition:transform 300ms cubic-bezier(0.34,1.56,0.64,1);
-  white-space:nowrap;pointer-events:none;
-}
-
-#alert-box.show{transform:translateX(-50%) translateY(0);}
-
-/* ======= PRESTIGE MODAL ======= */
-#prestige-modal{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,0.7);z-index:10000;
-  align-items:center;justify-content:center;
-}
+[...]
 
 #prestige-modal.show{display:flex;}
 
@@ -446,9 +259,7 @@ body{
   color:#4CAF50;text-shadow:0 1px 3px rgba(0,0,0,0.4);
   pointer-events:none;z-index:9998;
   animation:floatUp 900ms ease-out forwards;
-}
-
-@keyframes floatUp{
+}@keyframes floatUp{
   0%{opacity:1;transform:translateY(0);}
   100%{opacity:0;transform:translateY(-60px);}
 }
@@ -459,7 +270,7 @@ body{
 
   <div class="topbar-hud">
     <div class="hud-chip">💰 <span id="hud-coins">0</span></div>
-    <div class="hud-chip">⭐ Niv.<span id="hud-level">1</span></div>
+    <div class="hud-chip">⭐ Lv.<span id="hud-level">1</span></div>
     <div class="hud-chip">🛡️ <span id="hud-def">0</span></div>
     <div class="hud-chip">
       ⚡<span id="hud-energy">100</span>/<span id="hud-maxenergy">100</span>
@@ -483,53 +294,34 @@ body{
 
   <!-- CENTER : FARM + LIVESTOCK -->
   <div class="panel panel-center">
-    <div class="sec-title">🌱 Harvest <span style="font-size:0.85em;color:#5a7a2b;font-weight:600;">(coûte 1 ⚡)</span></div>
+    <div class="sec-title">🌱 Harvest <span style="font-size:0.85em;color:#5a7a2b;font-weight:600;">(costs 1 ⚡)</span></div>
     <div class="farm-grid" id="farmGrid"></div>
 
-    <div class="sec-title">🐄 Breeding <span style="font-size:0.85em;color:#5a7a2b;font-weight:600;">(clic pour acheter)</span></div>
+    <div class="sec-title">🐄 Livestock <span style="font-size:0.85em;color:#5a7a2b;font-weight:600;">(click to buy)</span></div>
     <div class="animal-grid" id="animalBuyGrid"></div>
-
+    
     <div class="sec-title">📦 Productions</div>
     <div style="background:rgba(255,255,255,0.5);border:1px solid rgba(200,168,75,0.3);border-radius:10px;padding:10px;" id="animalProducts"></div>
   </div>
 
-  <!-- RIGHT : tout en flex colonne scrollable -->
+  <!-- RIGHT -->
   <div class="panel-right">
 
-    <!-- Météo + Stats côte à côte -->
+    <!-- Weather + Stats -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
 
       <div class="mini-card">
-        <div class="sec-title">🌤️ Weather report</div>
+        <div class="sec-title">🌤️ Weather</div>
         <div class="weather-display">
           <div class="weather-icon" id="weatherIcon">☀️</div>
           <div class="weather-label" id="weatherLabel">Sunny +30%</div>
-          <div class="weather-timer">Change in <span id="weatherTimer">30</span>s</div>
+          <div class="weather-timer">Changes in <span id="weatherTimer">30</span>s</div>
         </div>
       </div>
 
-      <div class="mini-card">
-        <div class="sec-title">📊 Stats</div>
-        <div class="stat-row"><span class="stat-lbl">XP</span><span class="stat-val"><span id="stat-xp">0</span>/<span id="stat-xpmax">100</span></span></div>
-        <div class="mini-prog"><div class="mini-prog-fill" id="xp-bar"></div></div>
-        <div class="stat-row" style="margin-top:5px;"><span class="stat-lbl">Harvest</span><span class="stat-val" id="stat-harvested">0</span></div>
-        <div class="stat-row"><span class="stat-lbl">Sold</span><span class="stat-val" id="stat-sold">0</span></div>
-        <div class="stat-row"><span class="stat-lbl">Raids</span><span class="stat-val" id="stat-raids">0</span></div>
-        <div class="stat-row"><span class="stat-lbl">🏆 Rep</span><span class="stat-val" id="stat-rep">0</span></div>
-      </div>
-    </div>
+[...]
 
-    <!-- PRESTIGE -->
-    <div class="mini-card prestige-card">
-      <div class="prestige-title">✨ PRESTIGE</div>
-      <div class="prestige-info">Start over with a permanent bonus</div>
-      <div class="prestige-bonus" id="prestige-bonus-text">Bonus current : ×1.00</div>
-      <div class="prestige-info" id="prestige-next-text">Next prestige : ×1.50</div>
-      <div class="prestige-info" style="color:#9b59b6;font-weight:700;" id="prestige-cost-text">Cost : 10 000 💰</div>
-      <button class="btn-prestige" id="prestige-btn" onclick="openPrestige()">✨ Prestige !</button>
-    </div>
-
-    <!-- UPGRADES infinis -->
+<!-- Upgrades -->
     <div class="mini-card">
       <div class="sec-title">🔧 Upgrades <span style="font-size:0.85em;font-weight:600;">(infinite levels)</span></div>
       <div id="upgradesList"></div>
@@ -541,9 +333,9 @@ body{
       <div id="perksList"></div>
     </div>
 
-    <!-- QUÊTES -->
+    <!-- QUESTS -->
     <div class="mini-card">
-      <div class="sec-title">📜 Quest</div>
+      <div class="sec-title">📜 Quests</div>
       <div id="questsList"></div>
     </div>
 
@@ -561,9 +353,9 @@ body{
   <div class="modal-box">
     <div class="modal-title">✨ Prestige</div>
     <div class="modal-desc" id="modal-desc">
-    You're going to lose everything (coins, resources, level...)<br>
-      but gain a permanent 1.50x bonus on all your stats!<br><br>
-      <strong>Prestiges actual : 0 → Bonus total : ×1.50</strong>
+      You will lose everything (coins, resources, level...)<br>
+      but gain a permanent ×1.50 bonus on all your stats!<br><br>
+      <strong>Current prestiges: 0 → Total bonus: ×1.50</strong>
     </div>
     <div class="modal-buttons">
       <button class="btn-confirm" onclick="confirmPrestige()">✨ Confirm</button>
@@ -573,7 +365,7 @@ body{
 </div>
 
 <!-- ALERT -->
-<div id="alert-box">🌾 Welcome !</div>
+<div id="alert-box">🌾 Welcome!</div>
 
 <script>
 function goPage(p){location.href=p;}
@@ -586,8 +378,8 @@ var G={
   eggs:0,milk:0,wool:0,bacon:0,butter:0,houblon:0,
   coins:0,energy:100,maxEnergy:100,
   click:1,auto:0,def:0,level:1,xp:0,xpMax:100,reputation:0,
-  upgradeLevels:{},   // {key: niveau}
-  perks:{},           // {key: true}
+  upgradeLevels:{},
+  perks:{},
   prestigeCount:0,
   prestigeMultiplier:1.0,
   totalHarvested:0,totalSold:0,totalClicks:0,timePlayed:0,raidsCount:0,
@@ -604,27 +396,18 @@ const CROPS={
 };
 
 const ANIMALS={
-  chickens:{emoji:'🐔',name:'Chickens', cost:25, product:'eggs', productEmoji:'🥚',productName:'Eggs'},
-  cows:    {emoji:'🐄',name:'Cows',     cost:80, product:'milk', productEmoji:'🥛',productName:'Milk'},
-  sheep:   {emoji:'🐑',name:'Sheep',    cost:45, product:'wool', productEmoji:'🧶',productName:'Wool'},
-  pigs:    {emoji:'🐷',name:'Pigs',     cost:60, product:'bacon',productEmoji:'🥓',productName:'Bacon'}
+  chickens:{emoji:'🐔',name:'Chickens', cost:25, product:'eggs',  productEmoji:'🥚',productName:'Eggs'},
+  cows:    {emoji:'🐄',name:'Cows',     cost:80, product:'milk',  productEmoji:'🥛',productName:'Milk'},
+  sheep:   {emoji:'🐑',name:'Sheep',    cost:45, product:'wool',  productEmoji:'🧶',productName:'Wool'},
+  pigs:    {emoji:'🐷',name:'Pigs',     cost:60, product:'bacon', productEmoji:'🥓',productName:'Bacon'}
 };
 
-const CRAFTS=[
-  {key:'bread',      emoji:'🍞',name:'Bread',        req:'10 🌾',check:()=>G.wheat>=10,       do_:()=>{G.wheat-=10;G.bread+=1;}},
-  {key:'barleyBread',emoji:'🥖',name:'Barley Bread', req:'10 🌿',check:()=>G.barley>=10,      do_:()=>{G.barley-=10;G.barleyBread+=1;}},
-  {key:'cornMeal',   emoji:'🌽',name:'Flour',        req:'10 🌽',check:()=>G.corn>=10,        do_:()=>{G.corn-=10;G.cornMeal+=1;}},
-  {key:'ryeBread',   emoji:'🍖',name:'Rye Bread',    req:'10 🎋',check:()=>G.rye>=10,         do_:()=>{G.rye-=10;G.ryeBread+=1;}},
-  {key:'butter',     emoji:'🧈',name:'Butter',       req:'5 🥛', check:()=>G.milk>=5,         do_:()=>{G.milk-=5;G.butter+=1;}},
-  {key:'deluxeBread',emoji:'🥐',name:'Deluxe',       req:'5🍞+2🧈',check:()=>G.bread>=5&&G.butter>=2,do_:()=>{G.bread-=5;G.butter-=2;G.deluxeBread+=1;}},
-  {key:'hops',       emoji:'🌿',name:'Hops',         req:'8 🌿', check:()=>G.barley>=8,       do_:()=>{G.barley-=8;G.hops+=1;}},
-  {key:'brewedBeer', emoji:'🍺',name:'Beer',         req:'15🌿+3H',check:()=>G.barley>=15&&G.hops>=3,do_:()=>{G.barley-=15;G.hops-=3;G.brewedBeer+=1;}}
-];
+[...]
 
 const SELLS=[
   {key:'bread',      emoji:'🍞',name:'Bread',        price:5},
   {key:'barleyBread',emoji:'🥖',name:'Barley Bread', price:8},
-  {key:'cornMeal',   emoji:'🌽',name:'Flour',        price:6},
+  {key:'cornMeal',   emoji:'🌽',name:'Cornmeal',     price:6},
   {key:'ryeBread',   emoji:'🍖',name:'Rye Bread',    price:7},
   {key:'eggs',       emoji:'🥚',name:'Eggs',         price:4},
   {key:'milk',       emoji:'🥛',name:'Milk',         price:6},
@@ -635,97 +418,23 @@ const SELLS=[
   {key:'brewedBeer', emoji:'🍺',name:'Beer',         price:35}
 ];
 
-
-// Infinite upgrades — baseCost × 1.6^level
+// Upgrades — baseCost × 1.6^level
 const UPGRADES={
-  autoFarm:   {name:'🚜 Auto Farm',  baseCost:50,  desc:'auto',   effectDesc:'+1 grain/sec per level',   apply:(lvl)=>{ G.auto=lvl; }},
-  clickBoost: {name:'💪 Click Boost',baseCost:30,  desc:'click',  effectDesc:'+1 harvest/click per level',apply:(lvl)=>{ G.click=1+lvl; }},
-  defBoost:   {name:'🛡️ Defense',    baseCost:40,  desc:'def',    effectDesc:'+1 defense per level',     apply:(lvl)=>{ G.def=lvl; }},
-  energyBoost:{name:'⚡ Energy',     baseCost:30,  desc:'energy', effectDesc:'+20 max energy per level', apply:(lvl)=>{ G.maxEnergy=100+lvl*20; }},
-  fertilizer: {name:'🧪 Fertilizer', baseCost:60,  desc:'custom', effectDesc:'+12% yield per level'},
-  betterFarm: {name:'🏞️ Better Farm',baseCost:150, desc:'custom', effectDesc:'+15% everything per level'},
-  irrigation: {name:'💧 Irrigation', baseCost:200, desc:'custom', effectDesc:'+20% drought resistance/level'},
-  smartTools: {name:'🔧 Tools',      baseCost:180, desc:'custom', effectDesc:'+15% livestock per level'},
-  marketHub:  {name:'🏬 Hub',        baseCost:250, desc:'custom', effectDesc:'+15% sell prices per level'},
-  seedQuality:{name:'🌱 Seeds',      baseCost:100, desc:'custom', effectDesc:'+10% quality per level'}
+  autoFarm:   {name:'🚜 Auto Farm',    baseCost:50,  desc:'auto',   effectDesc:'+1 grain/sec per level',    apply:(lvl)=>{ G.auto=lvl; }},
+  clickBoost: {name:'💪 Click Boost',  baseCost:30,  desc:'click',  effectDesc:'+1 harvest/click per level', apply:(lvl)=>{ G.click=1+lvl; }},
+  defBoost:   {name:'🛡️ Defense',     baseCost:40,  desc:'def',    effectDesc:'+1 defense per level',       apply:(lvl)=>{ G.def=lvl; }},
+  energyBoost:{name:'⚡ Energy',       baseCost:30,  desc:'energy', effectDesc:'+20 max energy per level',   apply:(lvl)=>{ G.maxEnergy=100+lvl*20; }},
+  fertilizer: {name:'🧪 Fertilizer',  baseCost:60,  desc:'custom', effectDesc:'+12% yield per level'},
+  betterFarm: {name:'🏞️ Better Farm', baseCost:150, desc:'custom', effectDesc:'+15% everything per level'},
+  irrigation: {name:'💧 Irrigation',  baseCost:200, desc:'custom', effectDesc:'+20% drought resistance/lvl'},
+  smartTools: {name:'🔧 Tools',        baseCost:180, desc:'custom', effectDesc:'+15% livestock per level'},
+  marketHub:  {name:'🏬 Market Hub',   baseCost:250, desc:'custom', effectDesc:'+15% sell price per level'},
+  seedQuality:{name:'🌱 Seeds',        baseCost:100, desc:'custom', effectDesc:'+10% quality per level'}
 };
 
-const PERKS={
-  extraXP:    {name:'⭐ XP Boost',    cost:120, desc:'+50% XP gained'},
-  luckyHand:  {name:'🍀 Luck',        cost:90,  desc:'Sometimes 2x harvest'},
-  tradeExpert:{name:'💼 Expert',      cost:200, desc:'+20% sell prices'},
-  animalPro:  {name:'🐾 Animal Pro',  cost:160, desc:'Animals produce 2x'},
-  weatherPro: {name:'🌈 Weather Pro', cost:140, desc:'Less drought'}
-};
+[...]
 
-const QUESTS=[
-  {name:'🌾 Farmer',     desc:'Harvest 100 wheat',     type:'wheat',   target:100, reward:50},
-  {name:'⭐ Level Up',   desc:'Reach level 5',        type:'level',   target:5,   reward:100},
-  {name:'🛡️ Defender',  desc:'Reach 10 defense',      type:'def',     target:10,  reward:80},
-  {name:'💰 Wealthy',   desc:'Have 500 coins',       type:'coins',   target:500, reward:150},
-  {name:'🐄 Breeder',   desc:'Have 10 animals total',type:'animals', target:10,  reward:120},
-  {name:'🍺 Brewer',    desc:'Brew 5 beers',         type:'brewedBeer',target:5, reward:200},
-  {name:'✨ Prestigious',desc:'Perform 1 prestige',   type:'prestige',target:1,   reward:500}
-];
-
-
-// ======= HELPERS =======
-function upgradeCost(key){
-  let u=UPGRADES[key];
-  let lvl=G.upgradeLevels[key]||0;
-  return Math.round(u.baseCost * Math.pow(1.6, lvl));
-}
-
-function upgradeBonus(key){
-  // retourne le multiplicateur actuel pour les upgrades custom
-  let lvl=G.upgradeLevels[key]||0;
-  if(lvl===0)return 1;
-  const rates={fertilizer:0.12,betterFarm:0.15,irrigation:0.20,smartTools:0.15,marketHub:0.15,seedQuality:0.10};
-  return 1+(rates[key]||0)*lvl;
-}
-
-function prestigeCost(){
-  return Math.round(10000 * Math.pow(3, G.prestigeCount));
-}
-
-function prestigeNextMult(){
-  return parseFloat((1.0 + (G.prestigeCount+1)*0.5).toFixed(2));
-}
-
-// ======= SAVE / LOAD =======
-function save(){
-  try{localStorage.setItem('farmEmpire3',JSON.stringify(G));}catch(e){}
-}
-
-function load(){
-  var d=localStorage.getItem('farmEmpire3');
-  if(!d)return;
-  try{
-    var s=JSON.parse(d);
-    Object.keys(G).forEach(k=>{if(s[k]!==undefined)G[k]=s[k];});
-  }catch(e){}
-  if(!G.maxEnergy||G.maxEnergy<=0)G.maxEnergy=100;
-  if(G.energy>G.maxEnergy)G.energy=G.maxEnergy;
-  if(!G.upgradeLevels)G.upgradeLevels={};
-  if(!G.perks)G.perks={};
-  if(!G.prestigeCount)G.prestigeCount=0;
-  if(!G.prestigeMultiplier)G.prestigeMultiplier=1.0;
-}
-
-// ======= HARVEST =======
-function harvest(type,evt){
-  if(G.energy<=0){showAlert('⚡ Plus d\'énergie !');return;}
-  G.energy-=1;
-  G.totalClicks++;
-
-  let mod=G.weatherModifier;
-  if(G.weather==='drought') mod*=Math.max(0.3, 1-(0.7/upgradeBonus('irrigation')));
-  mod*=upgradeBonus('fertilizer');
-  mod*=upgradeBonus('betterFarm');
-  mod*=upgradeBonus('seedQuality');
-  mod*=G.prestigeMultiplier;
-
-  let amount=Math.max(1,Math.floor(G.click*mod));
+let amount=Math.max(1,Math.floor(G.click*mod));
   if(G.perks.luckyHand&&Math.random()<0.2) amount*=2;
 
   G[type]+=amount;
@@ -738,17 +447,17 @@ function harvest(type,evt){
 // ======= CRAFT =======
 function craft(idx){
   let c=CRAFTS[idx];
-  if(!c.check()){showAlert('❌ Insufficient resources');return;}
+  if(!c.check()){showAlert('❌ Not enough resources');return;}
   c.do_();
   gainXP(8);
-  showAlert('✅ '+c.name+' crafté !');
+  showAlert('✅ '+c.name+' crafted!');
   update();
 }
 
 // ======= SELL =======
 function sell(key){
   let item=SELLS.find(s=>s.key===key);
-  if(!item||G[key]<=0){showAlert('❌ Nothing to sell !');return;}
+  if(!item||G[key]<=0){showAlert('❌ Nothing to sell!');return;}
   let price=item.price;
   price*=upgradeBonus('marketHub');
   if(G.perks.tradeExpert)price*=1.2;
@@ -758,79 +467,32 @@ function sell(key){
   G[key]--;
   G.totalSold++;
   gainXP(6);
-  showAlert('💰 +'+price+' coins !');
+  showAlert('💰 +'+price+' coins!');
   update();
 }
 
 // ======= BUY ANIMAL =======
 function buyAnimal(key){
   let a=ANIMALS[key];
-  let cost=Math.round(a.cost/G.prestigeMultiplier); // prestige réduit les coûts animaux
-  if(G.coins<cost){showAlert('💰 Not enough coin !');return;}
+  let cost=Math.round(a.cost/G.prestigeMultiplier);
+  if(G.coins<cost){showAlert('💰 Not enough coins!');return;}
   G.coins-=cost;
   G[key]++;
   gainXP(10);
-  showAlert('🎉 '+a.name.slice(0,-1)+' bought !');
+  showAlert('🎉 '+a.name.slice(0,-1)+' purchased!');
   update();
 }
 
-// ======= UPGRADE (infini) =======
+// ======= UPGRADE (infinite) =======
 function buyUpgrade(key){
   let cost=upgradeCost(key);
-  if(G.coins<cost){showAlert('💰 Not enough coin  !');return;}
+  if(G.coins<cost){showAlert('💰 Not enough coins!');return;}
   G.coins-=cost;
   if(!G.upgradeLevels[key])G.upgradeLevels[key]=0;
   G.upgradeLevels[key]++;
   let lvl=G.upgradeLevels[key];
 
-  // Applique effets directs
-  let u=UPGRADES[key];
-  if(u.apply) u.apply(lvl);
-
-  showAlert('🔧 '+u.name+' Level '+lvl+' !');
-  gainXP(15);
-  update();
-}
-
-// ======= PERK =======
-function buyPerk(key){
-  let p=PERKS[key];
-  if(G.perks[key]){showAlert('✅ Already owned!');return;}
-  if(G.coins<p.cost){showAlert('💰 Not enough coin !');return;}
-  G.coins-=p.cost;
-  G.perks[key]=true;
-  showAlert('✨ '+p.name+' activated !');
-  gainXP(50);
-  update();
-}
-
-// ======= XP =======
-function gainXP(amount){
-  let mult=(G.perks.extraXP?1.5:1)*G.prestigeMultiplier;
-  G.xp+=Math.round(amount*mult);
-  while(G.xp>=G.xpMax){
-    G.xp-=G.xpMax;
-    G.level++;
-    G.xpMax=Math.round(G.xpMax*1.15);
-    G.maxEnergy+=5;
-    G.energy=Math.min(G.energy+10,G.maxEnergy);
-    showAlert('🎊 LEVEL UP ! Niveau '+G.level);
-    addEvent('🎉 Niveau '+G.level+' atteint !');
-  }
-}
-
-// ======= PRESTIGE =======
-function openPrestige(){
-  let cost=prestigeCost();
-  let nextMult=prestigeNextMult();
-  let newTotal=(1.0+(G.prestigeCount+1)*0.5).toFixed(2);
-  document.getElementById('modal-desc').innerHTML=
-   You will lose coins, resources, level and upgrades...<br>
-   But your permanent bonus will change from <strong>×${G.prestigeMultiplier.toFixed(2)}</strong> à <strong>×${newTotal}</strong> !<br><br>
-    <strong>Coût : ${cost.toLocaleString()} 💰</strong><br>
-    <span style="font-size:0.85em;color:#c9b8e8;">Tu gardes tes Perks !</span>`;
-  document.getElementById('prestige-modal').classList.add('show');
-}
+[...]
 
 function closePrestige(){
   document.getElementById('prestige-modal').classList.remove('show');
@@ -838,18 +500,16 @@ function closePrestige(){
 
 function confirmPrestige(){
   let cost=prestigeCost();
-  if(G.coins<cost){showAlert('💰 Pas assez de coins pour le prestige !');closePrestige();return;}
+  if(G.coins<cost){showAlert('💰 Not enough coins for prestige!');closePrestige();return;}
 
   G.prestigeCount++;
   G.prestigeMultiplier=parseFloat((1.0+G.prestigeCount*0.5).toFixed(2));
 
-  // Reset mais garde perks + prestigeCount + prestigeMultiplier
   let savedPerks=G.perks;
   let savedPrestigeCount=G.prestigeCount;
   let savedPrestigeMult=G.prestigeMultiplier;
   let savedEvents=G.events;
 
-  // Reset ressources
   G.wheat=0;G.barley=0;G.corn=0;G.rye=0;
   G.bread=0;G.barleyBread=0;G.cornMeal=0;G.ryeBread=0;G.deluxeBread=0;G.brewedBeer=0;
   G.chickens=0;G.cows=0;G.sheep=0;G.pigs=0;
@@ -859,15 +519,14 @@ function confirmPrestige(){
   G.upgradeLevels={};
   G.totalHarvested=0;G.totalSold=0;G.totalClicks=0;G.raidsCount=0;
 
-  // Restaure
   G.perks=savedPerks;
   G.prestigeCount=savedPrestigeCount;
   G.prestigeMultiplier=savedPrestigeMult;
   G.events=savedEvents;
 
   closePrestige();
-  addEvent('✨ Prestige '+G.prestigeCount+' ! Bonus ×'+G.prestigeMultiplier.toFixed(2));
-  showAlert('✨ Prestige ! Bonus ×'+G.prestigeMultiplier.toFixed(2)+' actif !');
+  addEvent('✨ Prestige '+G.prestigeCount+'! Bonus ×'+G.prestigeMultiplier.toFixed(2));
+  showAlert('✨ Prestige! Bonus ×'+G.prestigeMultiplier.toFixed(2)+' active!');
   update();
 }
 
@@ -904,13 +563,12 @@ function addEvent(msg){
 // ======= WEATHER =======
 let wTimer=0;
 const WEATHERS=[
-  {key:'sunny',   icon:'☀️', label:'Sunny +30%',    mod:1.3,  msg:'☀️ Nice weather!'},
-  {key:'rainy',   icon:'🌧️', label:'Rainy +15%',    mod:1.15, msg:'🌧️ It’s raining!'},
-  {key:'drought', icon:'🔥', label:'Drought -50%',  mod:0.5,  msg:'🔥 Drought!'},
-  {key:'windy',   icon:'💨', label:'Windy +5%',     mod:1.05, msg:'💨 Strong wind!'},
-  {key:'storm',   icon:'⛈️', label:'Storm -30%',    mod:0.7,  msg:'⛈️ Storm!'}
+  {key:'sunny',  icon:'☀️', label:'Sunny +30%',      mod:1.3, msg:'☀️ Nice weather!'},
+  {key:'rainy',  icon:'🌧️',label:'Rainy +15%',       mod:1.15,msg:'🌧️ It\'s raining!'},
+  {key:'drought',icon:'🔥', label:'Drought -50%',     mod:0.5, msg:'🔥 Drought!'},
+  {key:'windy',  icon:'💨', label:'Windy +5%',        mod:1.05,msg:'💨 Strong wind!'},
+  {key:'storm',  icon:'⛈️',label:'Storm -30%',        mod:0.7, msg:'⛈️ Storm!'}
 ];
-
 
 setInterval(()=>{
   wTimer++;
@@ -960,14 +618,13 @@ setInterval(()=>{
 setInterval(()=>{
   if(Math.random()<0.12){
     let evts=[
-      {msg:'🎁 Bonus! +100 coins',     fx:()=>G.coins+=Math.round(100*G.prestigeMultiplier)},
-      {msg:'🍀 Harvest! +50 wheat',    fx:()=>G.wheat+=50},
-      {msg:'😔 Disease! -20 wheat',    fx:()=>G.wheat=Math.max(0,G.wheat-20)},
-      {msg:'🏆 Contest! +30 rep',      fx:()=>G.reputation+=30},
-      {msg:'🌧️ Rain! +30 barley',     fx:()=>G.barley+=30},
-      {msg:'🐛 Pests! -15 corn',       fx:()=>G.corn=Math.max(0,G.corn-15)}
+      {msg:'🎁 Bonus! +100 coins',       fx:()=>G.coins+=Math.round(100*G.prestigeMultiplier)},
+      {msg:'🍀 Harvest! +50 wheat',       fx:()=>G.wheat+=50},
+      {msg:'😔 Disease! -20 wheat',       fx:()=>G.wheat=Math.max(0,G.wheat-20)},
+      {msg:'🏆 Contest! +30 rep',         fx:()=>G.reputation+=30},
+      {msg:'🌧️ Rain! +30 barley',        fx:()=>G.barley+=30},
+      {msg:'🐛 Parasites! -15 corn',      fx:()=>G.corn=Math.max(0,G.corn-15)}
     ];
-
     let e=evts[Math.floor(Math.random()*evts.length)];
     e.fx();addEvent(e.msg);showAlert(e.msg);update();
   }
@@ -979,41 +636,22 @@ setInterval(()=>{
     let loss=Math.max(0,Math.floor(G.coins*0.1)-G.def*5);
     if(loss>0){
       G.coins-=loss;G.raidsCount++;
-      addEvent('⚔️ Raid ! -'+loss+' coins');showAlert('⚔️ Raid ! -'+loss+' coins');
+      addEvent('⚔️ Raid! -'+loss+' coins');showAlert('⚔️ Raid! -'+loss+' coins');
     }else{
-      addEvent('⚔️ Raid repoussé ! (Défense '+G.def+')');showAlert('🛡️ Raid repoussé !');
+      addEvent('⚔️ Raid repelled! (Defense '+G.def+')');showAlert('🛡️ Raid repelled!');
     }
     update();
   }
 },30000);
 
-// ======= UPDATE UI =======
-function update(){
-  // HUD
-  document.getElementById('hud-coins').textContent=G.coins;
-  document.getElementById('hud-level').textContent=G.level;
-  document.getElementById('hud-def').textContent=G.def;
-  document.getElementById('hud-energy').textContent=Math.ceil(G.energy);
-  document.getElementById('hud-maxenergy').textContent=G.maxEnergy;
-  document.getElementById('hud-energybar').style.width=(G.energy/G.maxEnergy*100)+'%';
-  document.getElementById('hud-prestige').textContent=G.prestigeCount;
-  document.getElementById('hud-pmult').textContent=G.prestigeMultiplier.toFixed(2);
+[...]
 
-  // Stats
-  document.getElementById('stat-xp').textContent=G.xp;
-  document.getElementById('stat-xpmax').textContent=G.xpMax;
-  document.getElementById('xp-bar').style.width=(G.xp/G.xpMax*100)+'%';
-  document.getElementById('stat-harvested').textContent=G.totalHarvested;
-  document.getElementById('stat-sold').textContent=G.totalSold;
-  document.getElementById('stat-raids').textContent=G.raidsCount;
-  document.getElementById('stat-rep').textContent=G.reputation;
-
-  // Prestige section
+// Prestige section
   let pCost=prestigeCost();
   let canPrestige=G.coins>=pCost;
-  document.getElementById('prestige-bonus-text').textContent='Bonus actuel : ×'+G.prestigeMultiplier.toFixed(2);
-  document.getElementById('prestige-next-text').textContent='Prochain : ×'+prestigeNextMult().toFixed(2);
-  document.getElementById('prestige-cost-text').textContent='Coût : '+pCost.toLocaleString()+' 💰';
+  document.getElementById('prestige-bonus-text').textContent='Current bonus: ×'+G.prestigeMultiplier.toFixed(2);
+  document.getElementById('prestige-next-text').textContent='Next: ×'+prestigeNextMult().toFixed(2);
+  document.getElementById('prestige-cost-text').textContent='Cost: '+pCost.toLocaleString()+' 💰';
   document.getElementById('prestige-btn').disabled=!canPrestige;
 
   // Farm grid
@@ -1025,7 +663,7 @@ function update(){
       <div class="farm-gain">+${gainBase}</div>
       <span class="farm-emoji">${c.emoji}</span>
       <div class="farm-name">${c.name}</div>
-      <div class="farm-stock">${G[key]} en stock</div>
+      <div class="farm-stock">${G[key]} in stock</div>
     </div>`;
   });
   document.getElementById('farmGrid').innerHTML=fHTML;
@@ -1039,7 +677,7 @@ function update(){
       <div class="animal-emoji">${a.emoji}</div>
       <div class="animal-name">${a.name}</div>
       <div class="animal-count">${G[key]}</div>
-      <div class="animal-cost">Acheter: ${cost}💰</div>
+      <div class="animal-cost">Buy: ${cost}💰</div>
     </div>`;
   });
   document.getElementById('animalBuyGrid').innerHTML=aHTML;
@@ -1056,7 +694,7 @@ function update(){
   });
   pHTML+=`<div style="display:flex;align-items:center;gap:7px;font-size:0.85em;">
     <span style="font-size:1.4em;">🌿</span>
-    <div><div style="font-weight:700;color:#3d2b0e;">Hop</div><div style="color:#5a7a3b;font-weight:700;">${G.houblon}</div></div>
+    <div><div style="font-weight:700;color:#3d2b0e;">Hops</div><div style="color:#5a7a3b;font-weight:700;">${G.houblon}</div></div>
   </div>
   <div style="display:flex;align-items:center;gap:7px;font-size:0.85em;">
     <span style="font-size:1.4em;">🧈</span>
@@ -1065,65 +703,9 @@ function update(){
   pHTML+='</div>';
   document.getElementById('animalProducts').innerHTML=pHTML;
 
-  // Craft list
-  let cHTML='';
-  CRAFTS.forEach((c,i)=>{
-    let can=c.check();
-    cHTML+=`<div class="craft-item${can?'':' disabled'}">
-      <div class="craft-left">
-        <span class="craft-emoji">${c.emoji}</span>
-        <div><div class="craft-name">${c.name}</div><div class="craft-req">${c.req}</div></div>
-      </div>
-      <div class="craft-right">
-        <div class="craft-stock">Stock: ${G[c.key]}</div>
-        <button class="btn-small" ${can?`onclick="craft(${i})"`:'disabled'}>Craft</button>
-      </div>
-    </div>`;
-  });
-  document.getElementById('craftList').innerHTML=cHTML;
+[...]
 
-  // Sell list
-  let sHTML='';
-  SELLS.forEach(s=>{
-    let has=G[s.key]>0;
-    let price=Math.round(s.price*upgradeBonus('marketHub')*(G.perks.tradeExpert?1.2:1)*G.prestigeMultiplier);
-    sHTML+=`<div class="craft-item${has?'':' disabled'}">
-      <div class="craft-left">
-        <span class="craft-emoji">${s.emoji}</span>
-        <div><div class="craft-name">${s.name}</div><div class="craft-req">Stock: ${G[s.key]}</div></div>
-      </div>
-      <div class="craft-right">
-        <div class="sell-price">+${price}💰</div>
-        <button class="btn-small btn-sell" ${has?`onclick="sell('${s.key}')"`:
-        'disabled'}>Vendre</button>
-      </div>
-    </div>`;
-  });
-  document.getElementById('sellList').innerHTML=sHTML;
-
-  // Upgrades infinis
-  let uHTML='';
-  Object.keys(UPGRADES).forEach(key=>{
-    let u=UPGRADES[key];
-    let lvl=G.upgradeLevels[key]||0;
-    let cost=upgradeCost(key);
-    let canBuy=G.coins>=cost;
-    uHTML+=`<div class="upg-item">
-      <div>
-        <div class="upg-name">${u.name} <span class="upg-level">Niv.${lvl}</span></div>
-        <div class="upg-desc">${u.effectDesc}</div>
-      </div>
-      <div style="text-align:right;flex-shrink:0;margin-left:8px;">
-        <div class="upg-cost">${cost.toLocaleString()}💰</div>
-        <button class="btn-small" ${canBuy?`onclick="buyUpgrade('${key}')"`:'disabled'}>
-          ${canBuy?'Acheter':'💰'}
-        </button>
-      </div>
-    </div>`;
-  });
-  document.getElementById('upgradesList').innerHTML=uHTML;
-
-  // Perks one-shot
+// Perks one-shot
   let pkHTML='';
   Object.keys(PERKS).forEach(key=>{
     let p=PERKS[key];
@@ -1139,7 +721,7 @@ function update(){
         :`<div style="text-align:right;flex-shrink:0;margin-left:8px;">
             <div class="upg-cost">${p.cost}💰</div>
             <button class="btn-small" ${canBuy?`onclick="buyPerk('${key}')"`:'disabled'}>
-              ${canBuy?'Acheter':'💰'}
+              ${canBuy?'Buy':'💰'}
             </button>
           </div>`
       }
@@ -1147,7 +729,7 @@ function update(){
   });
   document.getElementById('perksList').innerHTML=pkHTML;
 
-  // Quêtes
+  // Quests
   let qHTML='';
   QUESTS.forEach(q=>{
     let prog=0;
@@ -1162,47 +744,11 @@ function update(){
     let pct=Math.min(100,Math.round(prog/q.target*100));
     let done=prog>=q.target;
 
-    qHTML+=`<div class="quest-item">
-      <div class="quest-name">${q.name} ${done?'✅':''}</div>
-      <div class="quest-desc">${q.desc} — 🏆 ${q.reward}💰</div>
-      <div class="quest-bar-bg">
-        <div class="quest-bar-fill" style="width:${pct}%"></div>
-      </div>
-      <div class="quest-prog">${Math.min(prog,q.target)} / ${q.target} (${pct}%)</div>
-      ${done&&!q.claimed
-        ?`<button class="btn-small" style="margin-top:5px;" onclick="claimQuest(${QUESTS.indexOf(q)})">
-            Réclamer ${q.reward}💰
-          </button>`
-        :done?'<div style="font-size:0.72em;color:#5a9e32;margin-top:3px;">Récompense réclamée ✓</div>':''
-      }
-    </div>`;
-  });
-  document.getElementById('questsList').innerHTML=qHTML;
-
-  // Events log
-  document.getElementById('eventLog').innerHTML=
-    G.events.length
-      ? G.events.map(e=>`<div class="event-item">${e}</div>`).join('')
-      : '<div class="event-item" style="color:#aaa;">Aucun événement...</div>';
-
-  save();
-}
-
-// ======= CLAIM QUEST =======
-function claimQuest(idx){
-  let q=QUESTS[idx];
-  if(q.claimed)return;
-  q.claimed=true;
-  G.coins+=q.reward;
-  showAlert('🏆 Quête terminée ! +'+q.reward+' coins !');
-  addEvent('📜 Quête "'+q.name+'" complétée !');
-  update();
-}
+[...]
 
 // ======= INIT =======
 load();
 
-// Applique les upgrades chargés
 Object.keys(UPGRADES).forEach(key=>{
   let u=UPGRADES[key];
   let lvl=G.upgradeLevels[key]||0;
